@@ -60,6 +60,15 @@ For multi-step tasks, state a brief plan:
 
 Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
 
+## 5. 发布节奏（本项目约定）
+
+**不要为单个小修复发新版本（GitHub Release + APK）。**
+
+- 日常修复/改动：commit + push 到 main 即可，不打 tag、不建 Release、不上传 APK。
+- 只有满足其一才发版：① 重大更新（新功能/较大能力变化）；② 修复已积累较多，值得打包。
+- 发版时一次性做：bump `versionCode`/`versionName` → 打 `vX.Y.Z` tag → `gh release create` 上传打包好的 debug APK。
+- README 面向普通用户（讲 App 做什么、怎么装），开发者内容放 `docs/BUILD.md`。
+
 ---
 
 **These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
