@@ -1,6 +1,22 @@
 {
   "models": [
     {
+      "id": "qwen3-4b-q4km",
+      "displayName": "Qwen3 4B",
+      "fileName": "Qwen3-4B-Q4_K_M.gguf",
+      "url": "https://huggingface.co/Qwen/Qwen3-4B-GGUF/resolve/main/Qwen3-4B-Q4_K_M.gguf",
+      "mirrorUrl": "https://hf-mirror.com/Qwen/Qwen3-4B-GGUF/resolve/main/Qwen3-4B-Q4_K_M.gguf",
+      "sizeBytes": 2497280256,
+      "sha256": "7485fe6f11af29433bc51cab58009521f205840f5b4ae3a32fa7f92e8534fdf5",
+      "parameters": "4B",
+      "quantization": "Q4_K_M",
+      "minRamMb": 5120,
+      "recommendedNCtx": 4096,
+      "license": "Apache-2.0",
+      "description": "旗舰档，推理与中文能力最强，带思考块（已过滤）。推荐 6GB 以上内存设备使用。",
+      "hasThinkingBlock": true
+    },
+    {
       "id": "qwen2.5-1.5b-instruct-q4km",
       "displayName": "Qwen2.5 1.5B Instruct",
       "fileName": "qwen2.5-1.5b-instruct-q4_k_m.gguf",
