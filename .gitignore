@@ -1,0 +1,17 @@
+*.iml
+.gradle
+.kotlin
+/build
+/captures
+.externalNativeBuild
+.cxx
+.DS_Store
+
+# Local machine configuration (contains the SDK path)
+local.properties
+
+# IDE state
+.idea/
+
+# Vendored llama.cpp sources, cloned per the README
+/llama.cpp

@@ -1,0 +1,36 @@
+{
+  "models": [
+    {
+      "id": "qwen2.5-1.5b-instruct-q4km",
+      "displayName": "Qwen2.5 1.5B Instruct",
+      "fileName": "qwen2.5-1.5b-instruct-q4_k_m.gguf",
+      "url": "https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct-GGUF/resolve/main/qwen2.5-1.5b-instruct-q4_k_m.gguf",
+      "mirrorUrl": "https://hf-mirror.com/Qwen/Qwen2.5-1.5B-Instruct-GGUF/resolve/main/qwen2.5-1.5b-instruct-q4_k_m.gguf",
+      "sizeBytes": 1117320736,
+      "sha256": "6a1a2eb6d15622bf3c96857206351ba97e1af16c30d7a74ee38970e434e9407e",
+      "parameters": "1.5B",
+      "quantization": "Q4_K_M",
+      "minRamMb": 3072,
+      "recommendedNCtx": 4096,
+      "license": "Apache-2.0",
+      "description": "中文对话主力模型，响应稳定，无明显思考块。推荐 4GB 以上内存设备使用。",
+      "hasThinkingBlock": false
+    },
+    {
+      "id": "qwen3-0.6b-q4km",
+      "displayName": "Qwen3 0.6B",
+      "fileName": "Qwen3-0.6B-Q4_K_M.gguf",
+      "url": "https://huggingface.co/unsloth/Qwen3-0.6B-GGUF/resolve/main/Qwen3-0.6B-Q4_K_M.gguf",
+      "mirrorUrl": "https://hf-mirror.com/unsloth/Qwen3-0.6B-GGUF/resolve/main/Qwen3-0.6B-Q4_K_M.gguf",
+      "sizeBytes": 396705472,
+      "sha256": "ac2d97712095a558e31573f62f466a3f9d93990898b0ec79d7c974c1780d524a",
+      "parameters": "0.6B",
+      "quantization": "Q4_K_M",
+      "minRamMb": 1536,
+      "recommendedNCtx": 2048,
+      "license": "Apache-2.0",
+      "description": "低配档模型，体积小、加载快，适合模拟器或 2GB 内存设备。带思考块，已自动过滤。",
+      "hasThinkingBlock": true
+    }
+  ]
+}
