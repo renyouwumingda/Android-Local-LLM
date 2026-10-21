@@ -5,7 +5,7 @@
 | 组件 | 版本 | 备注 |
 |---|---|---|
 | JDK | 17+ | 项目用 `jdk-22` 构建通过 |
-| Android SDK | platform 36, build-tools 36.1.0 | `local.properties` 指向 SDK |
+| Android SDK | platform 36, build-tools 36.1.0 | `local.properties` 指向 SDK；`minSdk 30` |
 | NDK | `30.0.16248370` | 见 `app/build.gradle.kts` 的 `ndkVersion` |
 | CMake | `4.1.2` | 见 `externalNativeBuild.cmake.version` |
 | Gradle | 8.13 | wrapper 自带 |

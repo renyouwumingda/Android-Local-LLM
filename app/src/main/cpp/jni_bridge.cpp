@@ -276,6 +276,25 @@ static void reset_long_term_states(const bool clear_kv_cache = true) {
     }
 }
 
+/**
+ * Returns {usedTokens, totalContext}. usedTokens covers everything held in the KV
+ * cache (system prompt + replayed history + generated replies), so the UI can show
+ * how much of the window is spent.
+ */
+extern "C"
+JNIEXPORT jintArray JNICALL
+Java_com_example_chatai_llama_LlamaEngineImpl_nativeContextUsage(JNIEnv * env, jobject /*unused*/) {
+    jint out[2];
+    out[0] = g_context ? (jint) current_position : 0;
+    out[1] = (jint) g_n_ctx;
+
+    jintArray result = env->NewIntArray(2);
+    if (result) {
+        env->SetIntArrayRegion(result, 0, 2, out);
+    }
+    return result;
+}
+
 // Drop the older half of the tokens that follow the system prompt, then renumber
 // the surviving KV entries so they stay contiguous from system_prompt_position.
 static void shift_context() {

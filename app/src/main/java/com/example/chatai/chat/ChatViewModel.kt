@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.chatai.data.AppDatabase
 import com.example.chatai.data.MessageEntity
 import com.example.chatai.data.SessionEntity
+import com.example.chatai.llama.ContextUsage
 import com.example.chatai.llama.EngineState
 import com.example.chatai.llama.LlamaEngine
 import com.example.chatai.llama.LlamaEngineImpl
@@ -38,7 +39,9 @@ data class ChatUiState(
     val isGenerating: Boolean = false,
     val engineReady: Boolean = false,
     val engineLabel: String = "未加载",
-    val error: String? = null
+    val error: String? = null,
+    /** Share of the model's context window currently consumed. */
+    val contextUsage: ContextUsage? = null
 )
 
 const val DEFAULT_SYSTEM_PROMPT =
@@ -191,6 +194,7 @@ class ChatViewModel(
         }.onFailure { t ->
             _uiState.update { it.copy(error = "恢复对话上下文失败：${t.message}") }
         }
+        _uiState.update { it.copy(contextUsage = engine.contextUsage()) }
     }
 
     private suspend fun ensureModelLoaded(modelId: String, fileName: String, nCtx: Int) {
@@ -241,7 +245,12 @@ class ChatViewModel(
                         val visible = filter.feed(piece)
                         if (visible.isNotEmpty()) {
                             builder.append(visible)
-                            _uiState.update { it.copy(streamingText = builder.toString()) }
+                            _uiState.update {
+                                it.copy(
+                                    streamingText = builder.toString(),
+                                    contextUsage = engine.contextUsage()
+                                )
+                            }
                         }
                     }
 
@@ -270,7 +279,8 @@ class ChatViewModel(
                     it.copy(
                         isGenerating = false,
                         streamingText = "",
-                        error = failed?.let { msg -> "生成中断：$msg" }
+                        error = failed?.let { msg -> "生成中断：$msg" },
+                        contextUsage = engine.contextUsage()
                     )
                 }
             } catch (e: kotlinx.coroutines.CancellationException) {
@@ -296,7 +306,14 @@ class ChatViewModel(
     fun newConversation() {
         viewModelScope.launch {
             runCatching { engine.resetConversation(DEFAULT_SYSTEM_PROMPT) }
-            _uiState.update { it.copy(messages = emptyList(), streamingText = "", error = null) }
+            _uiState.update {
+                it.copy(
+                    messages = emptyList(),
+                    streamingText = "",
+                    error = null,
+                    contextUsage = engine.contextUsage()
+                )
+            }
         }
     }
 

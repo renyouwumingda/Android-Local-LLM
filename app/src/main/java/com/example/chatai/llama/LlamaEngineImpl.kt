@@ -76,6 +76,9 @@ class LlamaEngineImpl private constructor(
     private external fun replayTurn(content: String, isUser: Boolean): Int
 
     @FastNative
+    private external fun nativeContextUsage(): IntArray
+
+    @FastNative
     private external fun unload()
 
     @FastNative
@@ -281,4 +284,16 @@ class LlamaEngineImpl private constructor(
     }
 
     override fun loadedModelId(): String? = activeModelId
+
+    override fun contextUsage(): ContextUsage? {
+        if (_state.value !is EngineState.ModelReady &&
+            _state.value !is EngineState.Generating &&
+            _state.value !is EngineState.ProcessingUserPrompt
+        ) {
+            return null
+        }
+        val raw = nativeContextUsage() ?: return null
+        if (raw.size < 2) return null
+        return ContextUsage(usedTokens = raw[0], totalTokens = raw[1])
+    }
 }

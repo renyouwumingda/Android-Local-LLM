@@ -44,6 +44,20 @@ interface LlamaEngine {
     fun destroy()
 
     fun loadedModelId(): String?
+
+    /**
+     * Tokens currently held in the KV cache versus the model's context window.
+     * Returns null when no model is loaded.
+     */
+    fun contextUsage(): ContextUsage?
+}
+
+/** [usedTokens] covers the system prompt plus replayed history plus generated replies. */
+data class ContextUsage(val usedTokens: Int, val totalTokens: Int) {
+    val fraction: Float
+        get() = if (totalTokens <= 0) 0f else (usedTokens.toFloat() / totalTokens).coerceIn(0f, 1f)
+
+    val percent: Int get() = (fraction * 100).toInt()
 }
 
 sealed class EngineState {
